@@ -25,7 +25,8 @@ SECRET_KEY = '#)$9m6&dp!1rkvunz5xc^@jwvj+vql4n#g!ou+qm7-e7wi$^se'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []#Si no mal recuerdo se pone la url con la que se conecta a la página
+#Esto se pone cuando la variable de arriba DEBUG= False
 
 
 # Application definition
@@ -37,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'MainApp',
+    'ckeditor',
+    'Pages.apps.PagesConfig',
+    'Incidents.apps.IncidentsConfig'
 ]
 
 MIDDLEWARE = [
@@ -62,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'Pages.context_processor.get_pages'#Se agrega context processor
             ],
         },
     },
@@ -118,3 +124,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#Configuración para el RichTextField de ckeditor en el panel de administración de django, es decir, los widgerts que quiero que aparezcan.
+CKEDITOR_CONFIGS={
+    'default':{
+        'toolbar': 'Custom',
+        'toolbar_Custom':[
+            ['Bold', 'Italic', 'Underline'],
+            ['NumbereedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source', 'Table', 'Image']
+        ]
+    }
+}
