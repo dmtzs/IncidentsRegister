@@ -1,5 +1,7 @@
 from django.db import models
-import ckeditor.fields as ck
+from django.contrib.auth.models import User
+import ckeditor.fields as ck, django_countries.fields as countries
+#Buscar django-countries para mas info de ese campo.
 
 # Create your models here.
 class RegIncident(models.Model):
@@ -13,4 +15,15 @@ class RegIncident(models.Model):
     IssueDesc= ck.RichTextField(verbose_name= "Issue description")
     ReportTo= models.CharField(verbose_name= "Report to regulator?", max_length= 3)
     Impact= ck.RichTextField(verbose_name= "Impact")
+    RegBy= models.ForeignKey(User, verbose_name= "Registered by", on_delete= models.PROTECT)
+    ReportedBy= models.CharField(verbose_name= "Reported by")
+    Country= countries.CountryField(verbose_name= "Country")
     Extras= models.FileField(verbose_name= "Another extras", upload_to= "ExtrasEv")
+    #Checar si se necesita relación de muchos a muchos entre la tabla de usuarios default y esta tabla.
+
+    class Meta():
+        verbose_name= "Incident"
+        verbose_name_plural= "Incidents"
+
+    def __str__(self):
+        return self.TicketNum
